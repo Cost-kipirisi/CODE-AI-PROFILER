@@ -265,7 +265,7 @@ const questions = [
         "Aimes-tu lire, rechercher et découvrir de nouvelles choses ?",
 
         points: {
-            scientifique: 5,
+            scientifique: 6,
             journaliste: 3,
             enseignant: 2
         }
@@ -1165,6 +1165,7 @@ shareBtn.addEventListener(
 
         const percent =
             mainPercent.textContent;
+       const websiteLink = "https://cost-kipirisi.github.io/CODE-AI-PROFILER/index.html" ;
 
         const shareText =
 
@@ -1178,6 +1179,7 @@ shareBtn.addEventListener(
 
             "📊 Compatibilité estimée : " +
             percent + "%\n\n" +
+            "🧠 Découvrez ton propre profil ici : \n" + websiteLink + "\n\n" +
 
             "Fais ton analyse toi aussi ! 🚀";
 
