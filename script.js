@@ -265,7 +265,7 @@ const questions = [
         "Aimes-tu lire, rechercher et découvrir de nouvelles choses ?",
 
         points: {
-            scientifique: 6,
+            scientifique: 5,
             journaliste: 3,
             enseignant: 2
         }
@@ -742,71 +742,143 @@ function startArtificialAnalysis() {
    CALCULER LES RÉSULTATS
 ========================================= */
 
+/* =========================================
+   CALCULER LES RÉSULTATS
+========================================= */
+
 function calculateResults() {
 
     const results = [];
 
+    /*
+       Petit réglage des chances
+       uniquement en cas d'égalité.
+
+       1.00 = chance normale
+
+       Informaticien :
+       petit avantage
+
+       Scientifique :
+       très léger avantage
+
+       Ingénieur :
+       léger désavantage
+    */
+
+    const tieChance = {
+
+        informaticien: 1.10,
+
+        scientifique: 1.03,
+
+        ingenieur: 0.92
+
+    };
+
+
+    /* Créer la liste des résultats */
+
     Object.keys(domains).forEach(
         function(domainKey) {
 
+            /*
+               Tous les domaines
+               commencent avec une
+               chance normale : 1.00
+            */
+
+            const chance =
+                tieChance[domainKey] || 1.00;
+
+
             results.push({
 
-                key: domainKey,
+                key:
+                    domainKey,
 
                 name:
-                    domains[
-                        domainKey
-                    ].name,
+                    domains[domainKey].name,
 
                 icon:
-                    domains[
-                        domainKey
-                    ].icon,
+                    domains[domainKey].icon,
 
                 score:
-                    scores[
-                        domainKey
-                    ]
+                    scores[domainKey],
+
+                /*
+                   Valeur utilisée
+                   seulement lorsque
+                   deux scores sont égaux.
+                */
+
+                tieValue:
+                    Math.random() * chance
 
             });
 
         }
     );
 
-    /* Trier du plus grand
-       score au plus petit */
+
+    /* =====================================
+       CLASSEMENT
+    ===================================== */
 
     results.sort(
         function(a, b) {
 
+            /*
+               Le score réel est
+               toujours prioritaire.
+            */
+
+            if (
+                b.score !== a.score
+            ) {
+
+                return (
+                    b.score -
+                    a.score
+                );
+
+            }
+
+
+            /*
+               Si les scores sont égaux,
+               on utilise le hasard
+               avec les petits réglages.
+            */
+
             return (
-                b.score -
-                a.score
+                b.tieValue -
+                a.tieValue
             );
 
         }
     );
 
-    /*
-       Transformation des scores
-       en compatibilités estimées
-    */
+
+    /* =====================================
+       CALCUL DES POURCENTAGES
+    ===================================== */
 
     const highestScore =
         results[0].score;
 
+
     results.forEach(
         function(result, index) {
+
+            /*
+               Si toutes les réponses
+               sont NON.
+            */
 
             if (
                 highestScore === 0
             ) {
-
-                /*
-                   Si tout est NON,
-                   on garde des valeurs
-                   neutres.
-                */
 
                 result.percent =
                     Math.max(
@@ -819,8 +891,9 @@ function calculateResults() {
             else {
 
                 /*
-                   Le meilleur domaine
-                   obtient entre 70 et 96%.
+                   Transformation
+                   des points en
+                   compatibilité.
                 */
 
                 let percent =
@@ -832,9 +905,11 @@ function calculateResults() {
                         ) * 61
                     );
 
+
                 /*
                    Les domaines sans
-                   point restent faibles.
+                   aucun point restent
+                   à un faible niveau.
                 */
 
                 if (
@@ -849,6 +924,12 @@ function calculateResults() {
 
                 }
 
+
+                /*
+                   Limite maximale
+                   à 96 %.
+                */
+
                 result.percent =
                     Math.min(
                         96,
@@ -860,10 +941,10 @@ function calculateResults() {
         }
     );
 
+
     return results;
 
 }
-
 
 /* =========================================
    COMMENTAIRES PERSONNALISÉS
@@ -1165,8 +1246,7 @@ shareBtn.addEventListener(
 
         const percent =
             mainPercent.textContent;
-       const websiteLink = "https://cost-kipirisi.github.io/CODE-AI-PROFILER/index.html" ;
-
+        const websiteLink = "https://cost-kipirisi.github.io/CODE-AI-PROFILER/index.html";
         const shareText =
 
             "🤖 COST AI PROFILER a analysé mon profil !\n\n" +
@@ -1179,7 +1259,7 @@ shareBtn.addEventListener(
 
             "📊 Compatibilité estimée : " +
             percent + "%\n\n" +
-            "🧠 Découvrez ton propre profil ici : \n" + websiteLink + "\n\n" +
+            "🧠 Decouvrir mon domaine : \n" + websiteLink +"\n\n" +
 
             "Fais ton analyse toi aussi ! 🚀";
 
