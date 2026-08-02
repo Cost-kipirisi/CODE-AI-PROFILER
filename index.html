@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COST AI PROFILER</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Arrière-plan animé -->
+    <div class="background">
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+    </div>
+
+    <main class="app">
+
+        <!-- ÉCRAN D'ACCUEIL -->
+        <section id="welcomeScreen" class="screen active">
+
+            <div class="logo">
+                <div class="logo-ring"></div>
+                <span>🤖</span>
+            </div>
+
+            <p class="mini-title">
+                INTELLIGENCE • ANALYSE • PROFIL
+            </p>
+
+            <h1>
+                COST <span>AI</span><br>
+                PROFILER
+            </h1>
+
+            <p class="description">
+                Réponds à 18 questions et découvre les domaines
+                qui correspondent le plus à ton profil.
+            </p>
+
+            <div class="name-box">
+                <label for="userName">
+                    👤 Comment t’appelles-tu ?
+                </label>
+
+                <input
+                    type="text"
+                    id="userName"
+                    placeholder="Entre ton prénom..."
+                    maxlength="25"
+                    autocomplete="name"
+                >
+            </div>
+
+            <button id="startBtn" class="main-button">
+                <span>COMMENCER L’ANALYSE</span>
+                <b>→</b>
+            </button>
+
+            <p class="small-text">
+                🧠 Analyse basée sur tes réponses
+            </p>
+
+        </section>
+
+
+        <!-- ÉCRAN DES QUESTIONS -->
+        <section id="questionScreen" class="screen">
+
+            <div class="top-bar">
+
+                <div>
+                    <p id="categoryText">
+                        TES INTENTIONS
+                    </p>
+
+                    <h2 id="questionNumber">
+                        Question 1 sur 18
+                    </h2>
+                </div>
+
+                <div class="progress-number">
+                    <span id="progressPercent">0</span>%
+                </div>
+
+            </div>
+
+            <div class="progress-track">
+                <div id="progressBar"></div>
+            </div>
+
+            <div class="question-card">
+
+                <div id="questionIcon" class="question-icon">
+                    🎯
+                </div>
+
+                <h2 id="questionText">
+                    Chargement de la question...
+                </h2>
+
+                <p>
+                    Choisis la réponse qui te correspond le mieux.
+                </p>
+
+                <div class="answers">
+
+                    <button id="yesBtn" class="answer yes">
+                        <span>✓</span>
+                        OUI
+                    </button>
+
+                    <button id="noBtn" class="answer no">
+                        <span>×</span>
+                        NON
+                    </button>
+
+                </div>
+
+            </div>
+
+            <p class="question-info">
+                Tes réponses sont utilisées uniquement pour calculer
+                ton profil dans cette session.
+            </p>
+
+        </section>
+
+
+        <!-- ÉCRAN D'ANALYSE -->
+        <section id="analysisScreen" class="screen">
+
+            <div class="scanner">
+
+                <div class="scanner-ring ring-one"></div>
+                <div class="scanner-ring ring-two"></div>
+
+                <div class="scanner-core">
+                    🧠
+                </div>
+
+                <div class="scan-line"></div>
+
+            </div>
+
+            <p class="mini-title">
+                COST AI ENGINE
+            </p>
+
+            <h2>
+                Analyse de ton profil...
+            </h2>
+
+            <p id="analysisText">
+                Lecture de tes réponses...
+            </p>
+
+            <div class="loading-line">
+                <div id="loadingBar"></div>
+            </div>
+
+        </section>
+
+
+        <!-- ÉCRAN DU RÉSULTAT -->
+        <section id="resultScreen" class="screen">
+
+            <p class="mini-title">
+                ANALYSE TERMINÉE
+            </p>
+
+            <h2 class="result-title">
+                Ton profil est prêt ✨
+            </h2>
+
+            <div class="profile-card">
+
+                <div class="profile-top">
+
+                    <div id="profileInitial">
+                        C
+                    </div>
+
+                    <div>
+                        <p>PROFIL DE</p>
+
+                        <h2 id="resultName">
+                            COST
+                        </h2>
+                    </div>
+
+                </div>
+
+                <div class="main-domain">
+
+                    <p>DOMAINE PRINCIPAL</p>
+
+                    <div id="mainDomainIcon">
+                        💻
+                    </div>
+
+                    <h1 id="mainDomain">
+                        INFORMATICIEN
+                    </h1>
+
+                    <div class="big-percent">
+                        <span id="mainPercent">
+                            87
+                        </span>%
+                    </div>
+
+                    <p id="resultComment">
+                        Ton profil montre une forte attirance
+                        pour la technologie et la résolution
+                        de problèmes.
+                    </p>
+
+                </div>
+
+                <div class="profile-footer">
+                    🤖 Généré par COST AI PROFILER
+                </div>
+
+            </div>
+
+            <button id="otherDomainsBtn" class="secondary-button">
+                🔎 D’AUTRES DOMAINES POSSIBLES
+            </button>
+
+            <div id="otherDomains" class="other-domains">
+
+                <h3>
+                    Tes autres compatibilités
+                </h3>
+
+                <div id="domainsList">
+                    <!-- JavaScript ajoutera les domaines -->
+                </div>
+
+            </div>
+
+            <button id="shareBtn" class="main-button share">
+                📤 PARTAGER MON PROFIL
+            </button>
+
+            <button id="restartBtn" class="restart-button">
+                ↻ Refaire l’analyse
+            </button>
+
+            <p class="disclaimer">
+                Résultat indicatif basé sur tes réponses.
+                Ce test ne détermine pas ton avenir.
+            </p>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
